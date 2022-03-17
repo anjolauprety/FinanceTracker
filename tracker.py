@@ -78,6 +78,72 @@ def process_choice(choice):
         desc = input("new category description: ")
         cat = {'name':name, 'desc':desc}
         category.update(rowid,cat)
+    elif choice=='4':
+        print("show transactions")
+        print_category(category)
+    elif choice=='5': 
+        print("add transaction")
+        rowid = int(input("rowid: ")) ## just have the last row_id
+        name = input("category name: ")
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='6': 
+        print("delete transaction")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='7': 
+        print("summarize transactions by date")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='8': 
+        print("summarize transactions by month")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='9': 
+        print("summarize transactions by year")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='10': 
+        print(" summarize transactions by category")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='11': 
+        print("print this menu")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='12': 
+        print("summarize by keyword in desc")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
+    elif choice=='13': 
+        print("summarize by month and year")
+        rowid = int(input("rowid: ")) 
+        name = input("category name: ") # make it empty
+        desc = input("category description: ")
+        cat = {'name':name, 'desc':desc}
+        category.update(rowid,cat)
     else:
         print("choice",choice,"not yet implemented")
 
