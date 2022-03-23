@@ -1,8 +1,8 @@
 import sqlite3
 
 def to_tra_dict(tra_tuple):
-    ''' tra is a transation tuple (itemnum, amount, cat, date, desc)'''
-    tra = {'itemnum':tra_tuple[0], 'amount':tra_tuple[1], 'cat':tra_tuple[2], 'date':tra_tuple[3], 'desc': tra_tuple[4]}
+    ''' tra is a transation tuple (item #, amount, cat, date, desc)'''
+    tra = {'item #':tra_tuple[0], 'amount':tra_tuple[1], 'cat':tra_tuple[2], 'date':tra_tuple[3], 'desc': tra_tuple[4]}
     return tra
 
 def to_tra_dict_list(tra_tuples):
@@ -15,7 +15,7 @@ class Transaction():
     def __init__(self,dbfile):
         con= sqlite3.connect(dbfile)
         cur = con.cursor()
-        cur.execute('''CREATE TABLE IF NOT EXISTS categories
+        cur.execute('''CREATE TABLE IF NOT EXISTS transactions
                     (amount text, cat text, date text, desc text)''')
         con.commit()
         con.close()
@@ -25,7 +25,7 @@ class Transaction():
         ''' return all of the transactions as a list of dicts.'''
         con= sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute("SELECT item #,* from transactions")
+        cur.execute("SELECT 'item #',* from transactions")
         tuples = cur.fetchall()
         con.commit()
         con.close()
@@ -35,7 +35,7 @@ class Transaction():
         ''' return a category with a specified itemnum '''
         con= sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute("SELECT itemnum,* from categories where itemnum=(?)",(itemnum,) )
+        cur.execute("SELECT 'item #',* from categories where 'item #'=(?)",(itemnum,) )
         tuples = cur.fetchall()
         con.commit()
         con.close()
@@ -64,7 +64,7 @@ class Transaction():
         cur = con.cursor()
         cur.execute('''UPDATE transactions
                         SET amount=(?), cat=(?), date=(?), desc=(?)
-                        WHERE itemnum=(?);
+                        WHERE 'item #'=(?);
         ''',(transact['amount'],transact['cat'],transact['date'],transact['desc'],itemnum))
         con.commit()
         con.close()
@@ -76,7 +76,7 @@ class Transaction():
         con= sqlite3.connect(self.dbfile)
         cur = con.cursor()
         cur.execute('''DELETE FROM transactions
-                       WHERE itemnum=(?);
+                       WHERE 'item #'=(?);
         ''',(itemnum,))
         con.commit()
         con.close()
