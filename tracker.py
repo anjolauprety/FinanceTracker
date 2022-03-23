@@ -33,10 +33,12 @@ could be replaced with PostgreSQL or Pandas or straight python lists
 
 #from transactions import Transaction
 from category import Category
+from transactions import Transaction
 import sys
 
 #transactions = Transaction('tracker.db')
 category = Category('tracker.db')
+transaction = Transaction('tracker.db')
 
 
 # here is the menu for the tracker app
@@ -78,16 +80,20 @@ def process_choice(choice):
         desc = input("new category description: ")
         cat = {'name':name, 'desc':desc}
         category.update(rowid,cat)
-    elif choice=='4':
-        print("show transactions")
-        print_category(category)
-    elif choice=='5': 
+    elif choice=='4': # I think this one has some format issues, but I can't figure it out right now. (Gillian)
+        tras = transaction.select_all()
+        print_transactions(tras)
+
+    elif choice=='5': # I think this works. (Gillian)
         print("add transaction")
-        rowid = int(input("rowid: ")) ## just have the last row_id
-        name = input("category name: ")
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
+        amount = int((input("amount: ")))
+        tracat = input("transaction category: ")
+        date = int(input("transaction day: "))
+        desc = input("new transaction description: ")
+        tra = {'amount':amount, 'category':tracat, 'date':date, 'desc':desc}
+        transaction.add(tra)
+
+    # Haven't worked on the following ↓ (Gillian)
     elif choice=='6': 
         print("delete transaction")
         rowid = int(input("rowid: ")) 
@@ -95,6 +101,7 @@ def process_choice(choice):
         desc = input("category description: ")
         cat = {'name':name, 'desc':desc}
         category.update(rowid,cat)
+
     elif choice=='7': 
         print("summarize transactions by date")
         rowid = int(input("rowid: ")) 
@@ -182,7 +189,7 @@ def print_category(cat):
     print("%-3d %-10s %-30s"%(cat['rowid'],cat['name'],cat['desc']))
 
 def print_categories(cats):
-    print("%-3s %-10s %-30s"%("id","name","description"))
+    print("%-3s %-10s %-30s"%("id","name4","description"))
     print('-'*45)
     for cat in cats:
         print_category(cat)
