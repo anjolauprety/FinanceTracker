@@ -2,6 +2,7 @@
 test_categories runs unit and integration tests on the category module
 '''
 
+from enum import IntEnum
 import pytest
 
 from transactions import Transaction, to_tra_dict
@@ -23,11 +24,11 @@ def empty_db(dbfile):
 @pytest.fixture
 def small_db(empty_db):
     ''' create a small database, and tear it down later'''
-    tra1 = {'amount': '1200', 'category': 'home furniture',
+    tra1 = {'item #': 7, 'amount': '1200', 'category': 'home furniture',
             'date': '03/02/2022', 'desc': 'couch and coffee table'}
-    tra2 = {'amount': '1400', 'category': 'electronics',
+    tra2 = {'item #': 8, 'amount': '1400', 'category': 'electronics',
             'date': '03/19/2022', 'desc': 'tv and sound speaker'}
-    tra3 = {'amount': '800', 'category': 'dining',
+    tra3 = {'item #': 9, 'amount': '800', 'category': 'dining',
             'date': '03/22/2022', 'desc': 'groceries'}
     id1 = empty_db.add(tra1)
     id2 = empty_db.add(tra2)
@@ -45,7 +46,8 @@ def med_db(small_db):
     # add 10 categories
     for i in range(10):
         s = str(i)
-        tra = {'amount': 'amount '+s,
+        tra = {'item #': +i,
+               'amount': 'amount '+s,
                'category': 'category '+s,
                'date': 'date '+s,
                'desc': 'description '+s,
@@ -63,8 +65,9 @@ def med_db(small_db):
 @pytest.mark.simple
 def test_to_tra_dict():
     ''' testing the to_cat_dict function '''
-    a = to_tra_dict((7, 'testamount', 'testcategory', 'testdate', 'testdesc'))
-    assert a['itemnum'] == 7
+    a = to_tra_dict(('testitemnum', 'testamount',
+                    'testcategory', 'testdate', 'testdesc'))
+    assert a['item #'] == 'testitemnum'
     assert a['amount'] == 'testamount'
     assert a['category'] == 'testcategory'
     assert a['date'] == 'testdate'
@@ -76,7 +79,10 @@ def test_to_tra_dict():
 def test_add(med_db):
     ''' add a category to db, the select it, then delete it'''
 
-    tra0 = {'amount': 'testing_add',
+    tra0 = {'item #': 7,
+            'amount': 'testing_add',
+            'category': 'testing',
+            "date": 'date',
             'desc': 'see if it works',
             }
     tras0 = med_db.select_all()
@@ -84,8 +90,11 @@ def test_add(med_db):
     tras1 = med_db.select_all()
     assert len(tras1) == len(tras0) + 1
     tra1 = med_db.select_one(rowid)
+    assert['item #'] == tra0['itemnum']
     assert tra1['amount'] == tra0['amount']
     assert tra1['category'] == tra0['category']
+    assert tra1['date'] == tra0['date']
+    assert tra1['desc'] == tra0['desc']
 
 
 @pytest.mark.delete
