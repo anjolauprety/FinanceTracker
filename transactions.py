@@ -1,3 +1,4 @@
+"""System module."""
 import sqlite3
 
 
@@ -54,6 +55,7 @@ class Transaction():
         return to_tra_dict_list(tuples)
 
     def sort_category(self):
+        ''' sort by category'''
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
         cur.execute("SELECT * FROM transactions ORDER BY category")
