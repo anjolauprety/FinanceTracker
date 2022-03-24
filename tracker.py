@@ -40,9 +40,9 @@ category = Category('tracker.db')
 transaction = Transaction('tracker.db')
 
 
-# here is the menu for the tracker app
+# here is the MENU for the tracker app
 
-menu = '''
+MENU = '''
 0. quit
 1. show categories
 2. add category
@@ -54,16 +54,14 @@ menu = '''
 8. summarize transactions by month
 9. summarize transactions by year
 10. summarize transactions by category
-11. print this menu
+11. print this MENU
 '''
 
 
 
 def process_choice(choice):
-
-    if choice=='0':
-        return
-    elif choice=='1':
+    '''Different choices that user can select'''
+    if choice=='1':
         cats = category.select_all()
         print_categories(cats)
     elif choice=='2':
@@ -113,20 +111,19 @@ def process_choice(choice):
         print(" summarize transactions by category")
         tras = transaction.sort_category()
         print_transactions(tras)
-
     elif choice=='11':
-        print(menu)
+        print(MENU)
+    elif choice=='0':
+        return
     else:
         print("choice",choice,"not yet implemented")
 
     choice = input("> ")
-    return(choice)
+    return choice
 
 def toplevel():
-    ''' handle the user's choice '''
-
-    ''' read the command args and process them'''
-    print(menu)
+    ''' handle the user's choice: read the command args and process them'''
+    print(MENU)
     choice = input("> ")
     while choice !='0' :
         choice = process_choice(choice)
@@ -150,15 +147,15 @@ def print_transactions(items):
         print("%-10s %-10d %-10s %-10d %-30s"%values)
 
 def print_category(cat):
+    '''prints the category'''
     print("%-3d %-10s %-30s"%(cat['rowid'],cat['name'],cat['desc']))
 
 def print_categories(cats):
+    '''prints the categories'''
     print("%-3s %-10s %-30s"%("id","name4","description"))
     print('-'*45)
     for cat in cats:
         print_category(cat)
 
-
 # here is the main call!
-
 toplevel()
