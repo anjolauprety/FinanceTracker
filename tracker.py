@@ -83,7 +83,6 @@ def process_choice(choice):
     elif choice=='4': # I think this one has some format issues, but I can't figure it out right now. (Gillian)
         tras = transaction.select_all()
         print_transactions(tras)
-
     elif choice=='5': # I think this works. (Gillian)
         print("add transaction")
         amount = int((input("amount: ")))
@@ -92,23 +91,15 @@ def process_choice(choice):
         desc = input("new transaction description: ")
         tra = {'amount':amount, 'category':tracat, 'date':date, 'desc':desc}
         transaction.add(tra)
-
-    # Haven't worked on the following ↓ (Gillian)
-    elif choice=='6': 
+    elif choice=='6': # Still need to test, should work (Karen)
         print("delete transaction")
         rowid = int(input("rowid: ")) 
-        name = input("category name: ") # make it empty
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
-
-    elif choice=='7': 
+        tra = {'amount':amount, 'category':tracat, 'date':date, 'desc':desc}
+        transaction.delete(tra,rowid)
+    elif choice=='7': # Still need to test, should work (Karen)
         print("summarize transactions by date")
-        rowid = int(input("rowid: ")) 
-        name = input("category name: ") # make it empty
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
+        tras = transaction.sort_date()
+        print_transactions(tras)
     elif choice=='8': 
         print("summarize transactions by month")
         rowid = int(input("rowid: ")) 
@@ -118,11 +109,8 @@ def process_choice(choice):
         category.update(rowid,cat)
     elif choice=='9': 
         print("summarize transactions by year")
-        rowid = int(input("rowid: ")) 
-        name = input("category name: ") # make it empty
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
+        tras = transaction.sort_year()
+        print_transactions(tras)
     elif choice=='10': 
         print(" summarize transactions by category")
         rowid = int(input("rowid: ")) 
@@ -132,20 +120,6 @@ def process_choice(choice):
         category.update(rowid,cat)
     elif choice=='11': 
         print("print this menu")
-        rowid = int(input("rowid: ")) 
-        name = input("category name: ") # make it empty
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
-    elif choice=='12': 
-        print("summarize by keyword in desc")
-        rowid = int(input("rowid: ")) 
-        name = input("category name: ") # make it empty
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
-    elif choice=='13': 
-        print("summarize by month and year")
         rowid = int(input("rowid: ")) 
         name = input("category name: ") # make it empty
         desc = input("category description: ")

@@ -42,6 +42,26 @@ class Transaction():
         return to_tra_dict(tuples[0])
 
 
+    def sort_date(self):
+        ''' return all transactions sorted by date '''
+        con= sqlite3.connect(self.dbfile)
+        cur = con.cursor()
+        cur.execute("SELECT * from transactions ORDER BY date")
+        tuples = cur.fetchall()
+        con.commit()
+        con.close()
+        return to_tra_dict_list(tuples)
+    
+    def sort_year(self):
+        ''' return all transactions sorted by year '''
+        con= sqlite3.connect(self.dbfile)
+        cur = con.cursor()
+        cur.execute("SELECT * from transactions ORDER BY year")
+        tuples = cur.fetchall()
+        con.commit()
+        con.close()
+        return to_tra_dict_list(tuples)
+
     def add(self,transact):
         ''' add a transaction to the transactions table.
             this returns the rowid of the inserted element
