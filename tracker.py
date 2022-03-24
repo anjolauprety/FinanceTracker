@@ -23,18 +23,17 @@ columns:
 amount, category, date (yyyymmdd), description
 
 In place of SQL queries, we will have method calls.
-
 This app will store the data in a SQLite database ~/tracker.db
-
-Note the actual implementation of the ORM is hidden and so it 
+Note the actual implementation of the ORM is hidden and so it
 could be replaced with PostgreSQL or Pandas or straight python lists
 
 '''
 
 #from transactions import Transaction
+
 from category import Category
 from transactions import Transaction
-import sys
+
 
 #transactions = Transaction('tracker.db')
 category = Category('tracker.db')
@@ -60,7 +59,6 @@ menu = '''
 
 
 
-
 def process_choice(choice):
 
     if choice=='0':
@@ -80,7 +78,7 @@ def process_choice(choice):
         desc = input("new category description: ")
         cat = {'name':name, 'desc':desc}
         category.update(rowid,cat)
-    elif choice=='4': # I think this one has some format issues, but I can't figure it out right now. (Gillian)
+    elif choice=='4': #(Gillian)
         tras = transaction.select_all()
         print_transactions(tras)
     elif choice=='5': # I think this works. (Gillian)
@@ -93,37 +91,36 @@ def process_choice(choice):
         transaction.add(tra)
     elif choice=='6': # Still need to test, should work (Karen)
         print("delete transaction")
-        rowid = int(input("rowid: ")) 
+        rowid = int(input("rowid: "))
         tra = {'amount':amount, 'category':tracat, 'date':date, 'desc':desc}
         transaction.delete(rowid)
     elif choice=='7': # Still need to test, should work (Karen)
         print("summarize transactions by date")
         tras = transaction.sort_date()
         print_transactions(tras)
-    elif choice=='8': 
+    elif choice=='8':
         print("summarize transactions by month")
-        rowid = int(input("rowid: ")) 
+        rowid = int(input("rowid: "))
         name = input("category name: ") # make it empty
         desc = input("category description: ")
         cat = {'name':name, 'desc':desc}
         category.update(rowid,cat)
-    elif choice=='9': 
+    elif choice=='9':
         print("summarize transactions by year")
         tras = transaction.sort_year()
         print_transactions(tras)
-    elif choice=='10': 
+    elif choice=='10':
         print(" summarize transactions by category")
         tras = transaction.sort_category()
         print_transactions(tras)
 
-    elif choice=='11': 
+    elif choice=='11':
         print(menu)
     else:
         print("choice",choice,"not yet implemented")
 
     choice = input("> ")
     return(choice)
-
 
 def toplevel():
     ''' handle the user's choice '''
@@ -149,7 +146,7 @@ def print_transactions(items):
         'item #','amount','category','date','description'))
     print('-'*40)
     for item in items:
-        values = tuple(item.values()) 
+        values = tuple(item.values())
         print("%-10s %-10d %-10s %-10d %-30s"%values)
 
 def print_category(cat):
@@ -165,4 +162,3 @@ def print_categories(cats):
 # here is the main call!
 
 toplevel()
-

@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def to_tra_dict(tra_tuple):
     ''' tra is a transation tuple (item #, amount, category, date, desc) '''
     tra = {'item #':tra_tuple[0],'amount':tra_tuple[1], 'category':tra_tuple[2], 'date':tra_tuple[3], 'desc': tra_tuple[4]}
