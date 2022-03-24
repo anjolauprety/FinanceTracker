@@ -63,12 +63,13 @@ def med_db(small_db):
 @pytest.mark.simple
 def test_to_tra_dict():
     ''' testing the to_cat_dict function '''
-    a = to_tra_dict(('testamount', 'testcategory', 'testdate', 'testdesc'))
+    a = to_tra_dict((7, 'testamount', 'testcategory', 'testdate', 'testdesc'))
+    assert a['itemnum'] == 7
     assert a['amount'] == 'testamount'
     assert a['category'] == 'testcategory'
     assert a['date'] == 'testdate'
     assert a['desc'] == 'testdesc'
-    assert len(a.keys()) == 4
+    assert len(a.keys()) == 5
 
 
 @pytest.mark.add
