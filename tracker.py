@@ -95,7 +95,7 @@ def process_choice(choice):
         print("delete transaction")
         rowid = int(input("rowid: ")) 
         tra = {'amount':amount, 'category':tracat, 'date':date, 'desc':desc}
-        transaction.delete(tra,rowid)
+        transaction.delete(rowid)
     elif choice=='7': # Still need to test, should work (Karen)
         print("summarize transactions by date")
         tras = transaction.sort_date()
@@ -113,18 +113,11 @@ def process_choice(choice):
         print_transactions(tras)
     elif choice=='10': 
         print(" summarize transactions by category")
-        rowid = int(input("rowid: ")) 
-        name = input("category name: ") # make it empty
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
+        tras = transaction.sort_category()
+        print_transactions(tras)
+
     elif choice=='11': 
-        print("print this menu")
-        rowid = int(input("rowid: ")) 
-        name = input("category name: ") # make it empty
-        desc = input("category description: ")
-        cat = {'name':name, 'desc':desc}
-        category.update(rowid,cat)
+        print(menu)
     else:
         print("choice",choice,"not yet implemented")
 
