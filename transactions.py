@@ -3,7 +3,8 @@ import sqlite3
 
 def to_tra_dict(tra_tuple):
     ''' tra is a transation tuple (item #, amount, category, date, desc) '''
-    tra = {'item #':tra_tuple[0],'amount':tra_tuple[1], 'category':tra_tuple[2], 'date':tra_tuple[3], 'desc': tra_tuple[4]}
+    tra = {'item #':tra_tuple[0],'amount':tra_tuple[1],
+'category':tra_tuple[2], 'date':tra_tuple[3], 'desc': tra_tuple[4]}
     return tra
 
 def to_tra_dict_list(tra_tuples):
@@ -87,7 +88,9 @@ class Transaction():
         '''
         con= sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute("INSERT INTO transactions VALUES(?,?,?,?)",(transact['item #'],transact['amount'],transact['category'],transact['date'],transact['desc']))
+        cur.execute("INSERT INTO transactions VALUES(?,?,?,?)",
+        (transact['item #'],transact['amount'],transact['category'],
+        transact['date'],transact['desc']))
         con.commit()
         cur.execute("SELECT last_insert_rowid()")
         last_rowid = cur.fetchone()
