@@ -41,6 +41,24 @@ class Transaction():
         con.close()
         return to_tra_dict(tuples[0])
 
+    def sort_mon(self):
+        ''' sort by month'''
+        con = sqlite3.connect(self.dbfile)
+        cur = con.cursor()
+        cur.execute('SELECT *FROM transactions ORDER BY substring(date,4:6)') 
+        tuples = cur.fetchall()
+        con.commit()
+        con.close()
+        return to_tra_dict_list(tuples)
+
+    def sort_category(self):
+        con = sqlite3.connect(self.dbfile)
+        cur = con.cursor()
+        cur.execute("SELECT * FROM transactions ORDER BY category")
+        tuples = cur.fetchall()
+        con.commit()
+        con.close()
+        return to_tra_dict_list(tuples)
 
     def sort_date(self):
         ''' return all transactions sorted by date '''
@@ -85,7 +103,7 @@ class Transaction():
         cur.execute('''UPDATE transactions
                         SET amount=(?), category=(?), date=(?), desc=(?)
                         WHERE 'item #'=(?);
-        ''',(transact['amount'],transact['category'],transact['date'],transact['desc'],itemnum))
+        ''',(itemnum, transact['amount'],transact['category'],transact['date'],transact['desc']))
         con.commit()
         con.close()
 
