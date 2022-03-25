@@ -21,7 +21,7 @@ class Transaction():
         con = sqlite3.connect(dbfile)
         cur = con.cursor()
         cur.execute('''CREATE TABLE IF NOT EXISTS transactions
-                    (itemnum number,amount text, category text, date text, desc text)''')
+                    (amount text, category text, date text, desc text)''')
         con.commit()
         con.close()
         self.dbfile = dbfile
@@ -41,7 +41,7 @@ class Transaction():
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
         cur.execute(
-            "SELECT 'item #',* from transactions where 'item #'=(?)", (itemnum,))
+            "SELECT rowid,* from transactions where rowid=(?)", (itemnum,))
         tuples = cur.fetchall()
         con.commit()
         con.close()
@@ -71,7 +71,7 @@ class Transaction():
         ''' return all transactions sorted by date '''
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute("SELECT * from transactions ORDER BY substring(date,6:8)")
+        cur.execute("SELECT * from transactions ORDER BY date")
         tuples = cur.fetchall()
         con.commit()
         con.close()
@@ -81,7 +81,7 @@ class Transaction():
         ''' return all transactions sorted by year '''
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute("SELECT * from transactions ORDER BY substring(date,0:4)")
+        cur.execute("SELECT * from transactions ORDER BY year")
         tuples = cur.fetchall()
         con.commit()
         con.close()
@@ -94,7 +94,7 @@ class Transaction():
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
         cur.execute("INSERT INTO transactions VALUES(?,?,?,?)",
-                    (transact['item #'], transact['amount'], transact['category'],
+                    (transact['amount'], transact['category'],
                      transact['date'], transact['desc']))
         con.commit()
         cur.execute("SELECT last_insert_rowid()")
