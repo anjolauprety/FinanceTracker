@@ -122,7 +122,8 @@ class Transaction():
         cur.execute('''UPDATE transactions
                         SET amount=(?), category=(?), date=(?), desc=(?)
                         WHERE 'item #'=(?);
-        ''', (itemnum, transact['amount'], transact['category'], transact['date'], transact['desc']))
+        ''', (itemnum, transact['amount'], transact['category'], transact['date'],
+              transact['desc']))
         con.commit()
         con.close()
 
