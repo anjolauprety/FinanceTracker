@@ -51,7 +51,7 @@ class Transaction():
         ''' sort by month'''
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute('SELECT *FROM transactions ORDER BY substring(date,4:6)')
+        cur.execute('SELECT *FROM transactions ORDER BY substring(date,0:2)')
         tuples = cur.fetchall()
         con.commit()
         con.close()
@@ -71,7 +71,7 @@ class Transaction():
         ''' return all transactions sorted by date '''
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute("SELECT * from transactions ORDER BY date")
+        cur.execute("SELECT * from transactions ORDER BY substring(date,2:4)")
         tuples = cur.fetchall()
         con.commit()
         con.close()
@@ -81,7 +81,7 @@ class Transaction():
         ''' return all transactions sorted by year '''
         con = sqlite3.connect(self.dbfile)
         cur = con.cursor()
-        cur.execute("SELECT * from transactions ORDER BY year")
+        cur.execute("SELECT * from transactions ORDER BY substring(4:8)")
         tuples = cur.fetchall()
         con.commit()
         con.close()
