@@ -136,15 +136,18 @@ item # 623        tim        5302021    hickey
 > 6
 delete transaction
 rowid: 4
-Traceback (most recent call last):
-  File "/Users/kaysmith/Documents/GitHub/pa02-team10/tracker.py", line 166, in <module>
-    toplevel()
-  File "/Users/kaysmith/Documents/GitHub/pa02-team10/tracker.py", line 130, in toplevel
-    choice = process_choice(choice)
-  File "/Users/kaysmith/Documents/GitHub/pa02-team10/tracker.py", line 93, in process_choice
-    tra = {'amount':amount, 'category':tracat, 'date':date, 'desc':desc}
-UnboundLocalError: local variable 'amount' referenced before assignment
-bash-3.2$  /usr/bin/env /usr/local/bin/python3 /Users/kaysmith/.vscode/extensioniles/lib/ppython3 tracker.py
+item # 300 hello 3 test
+item # 300 hello 3 hello
+item # 300 testing 3 hello
+item # 300 hello 3 hello
+item # 500 pa02 4 adder
+item # 3000 hi1 3 um
+item # 600 nice 3 nice nice
+item # 400 4 4 4
+item # 400 new money 5 some mula
+item # 300 hello 3032022 na
+item # 30 heyyy 3032022 na
+item # 300 hello 3032022 na
 
 0. quit
 1. show categories
