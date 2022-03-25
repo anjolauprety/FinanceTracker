@@ -108,13 +108,14 @@ def process_choice(choice):
         tras = transaction.sort_year()
         print_transactions(tras)
     elif choice=='10':
-        print(" summarize transactions by category")
+        print("summarize transactions by category")
         tras = transaction.sort_category()
         print_transactions(tras)
     elif choice=='11':
         print(MENU)
     elif choice=='0':
         return
+
     else:
         print("choice",choice,"not yet implemented")
 

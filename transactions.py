@@ -87,6 +87,16 @@ class Transaction():
         con.close()
         return to_tra_dict_list(tuples)
 
+    def sort_amount(self):
+        ''' sort by amount'''
+        con = sqlite3.connect(self.dbfile)
+        cur = con.cursor()
+        cur.execute("SELECT * from transactions ORDER BY (amount,8:12)")
+        tuples = cur.fetchall()
+        con.commit()
+        con.close()
+        return to_tra_dict_list(tuples)
+
     def add(self, transact):
         ''' add a transaction to the transactions table.
             this returns the rowid of the inserted element
