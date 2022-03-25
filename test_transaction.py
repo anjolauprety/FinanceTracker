@@ -92,6 +92,8 @@ def test_delete(med_db):
     tras0 = med_db.select_all()
     # then we add this category to the table and get the new list of rows
     tra0 = {'amount': 'testing_add',
+            'category': 'testing_category',
+            'date': 'test_date',
             'desc': 'see if it works',
             }
     rowid = med_db.add(tra0)
@@ -99,8 +101,8 @@ def test_delete(med_db):
     # now we delete the category and again get the new list of rows
     med_db.delete(rowid)
     tras2 = med_db.select_all()
-    assert len(tras0) == len(tras2)
-    assert len(tras2) == len(tras1)-1
+    assert len(tras0) == len(tras2)-1
+    assert len(tras2) == len(tras1)
 
 
 @pytest.mark.update
@@ -108,13 +110,18 @@ def test_update(med_db):
     ''' add a category to db, updates it, and see that it changes'''
     # then we add this category to the table and get the new list of rows
     tra0 = {'amount': 'testing_add',
+            'category': 'testing_category',
+            'date': 'test_date',
             'desc': 'see if it works',
             }
     rowid = med_db.add(tra0)
     # now we upate the category
-    tra1 = {'amount': 'new amount', 'desc': 'new desc'}
+    tra1 = {'amount': 'testing_add', 'category': 'testing_category',
+            'date': 'test_date', 'desc': 'see if it works'}
     med_db.update(rowid, tra1)
     # now we retrieve the transaction and check that it has changed
     tra2 = med_db.select_one(rowid)
     assert tra2['amount'] == tra1['amount']
+    assert tra2['category'] == tra1['category']
+    assert tra2['date'] == tra1['date']
     assert tra2['desc'] == tra1['desc']
